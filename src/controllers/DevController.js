@@ -42,5 +42,21 @@ module.exports = {
 
 
         return response.json(dev);
+    },
+
+    async update (request, response){
+        const { techs, name, bio, avatar, latitude, longitude} = request.params;
+        //let dev = await Dev.findOne({ github_userName })
+        let devUpdate = await Dev.findOne({ github_userName });
+        if(devUpdate){
+           
+        }
+
+
+    },
+
+    async destroy (request, response){
+        const { github_userName, _id} = request.params
+
     }
 }
