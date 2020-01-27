@@ -45,18 +45,14 @@ module.exports = {
     },
 
     async update (request, response){
-        const { techs, name, bio, avatar, latitude, longitude} = request.params;
-        //let dev = await Dev.findOne({ github_userName })
-        let devUpdate = await Dev.findOne({ github_userName });
-        if(devUpdate){
-           
-        }
+        let devUpdate = await Dev.findByIdAndUpdate(request.params.id, req.body, { new: true})
 
-
+        return response.json(devUpdate);  
     },
 
     async destroy (request, response){
-        const { github_userName, _id} = request.params
+        await Dev.findByIdAndDelete(request.params.id)
 
+        return response.send('deletou esta bagaça');
     }
 }
