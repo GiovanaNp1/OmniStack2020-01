@@ -8,8 +8,11 @@ const parseStringAsArray = require('../utils/ParseAsArrayString')
 module.exports = {
     async index (request, response){
         const devs = await Dev.find();
-
-        return response.json(devs);
+        return response.json(devs)
+        .send("Method index in Dev Controller")
+        .header('Access-Control-Allow-Origin', 'http://localhost:3333')
+        .header('x-correlation-id', correlationId)
+        .header('origin', 'http://localhost:3333');
     },
 
     async store(request, response){
@@ -41,18 +44,36 @@ module.exports = {
         }
 
 
-        return response.json(dev);
+        return response.json(dev)
+        .send("Method index in Dev Controller")
+        .header('Access-Control-Allow-Origin', 'http://localhost:3333')
+        .header('x-correlation-id', correlationId)
+        .header('origin', 'http://localhost:3333');;
     },
 
     async update (request, response){
         let devUpdate = await Dev.findByIdAndUpdate(request.params.id, req.body, { new: true})
-
-        return response.json(devUpdate);  
+        var jsonStr = req.query.params;
+        try {
+            var jsonObj = JSON.parse(jsonStr);
+            res.send('Success');
+          } catch (e) {
+            res.status(400).send('Invalid JSON string');
+          }
+        return response.json(devUpdate)
+        .send("Method index in Dev Controller")
+        .header('Access-Control-Allow-Origin', 'http://localhost:3333')
+        .header('x-correlation-id', correlationId)
+        .header('origin', 'http://localhost:3333');;  
     },
 
     async destroy (request, response){
         await Dev.findByIdAndDelete(request.params.id)
 
-        return response.send('deletou esta bagaça');
+        return response.send('deletou esta bagaça')
+        .send("Method index in Dev Controller")
+        .header('Access-Control-Allow-Origin', 'http://localhost:3333')
+        .header('x-correlation-id', correlationId)
+        .header('origin', 'http://localhost:3333');;
     }
 }
