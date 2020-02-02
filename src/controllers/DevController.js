@@ -52,7 +52,19 @@ module.exports = {
     },
 
     async update (request, response){
-        let devUpdate = await Dev.findByIdAndUpdate(request.params.id, req.body, { new: true})
+        var dev = new Dev({
+            name: Dev.name,
+            avatar_url: Dev.avatar_url,
+            techs: Dev.techsArray,
+            bio: Dev.bio,
+            location: Dev.location
+        });
+
+        let devUpdate = await Dev.findOneAndUpdate(query, request.params.id, {upsert: true}, function(err, doc){
+            if(err){
+
+            }
+        })
         var jsonStr = req.query.params;
         try {
             var jsonObj = JSON.parse(jsonStr);
